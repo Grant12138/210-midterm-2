@@ -4,22 +4,22 @@ using namespace std; // Standard namespace will be used throughout the code
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
-struct Node;
+struct Node
+{
+    string data; // The data in a Node
+    Node* prev; // The pointer to the previous Node
+    Node* next; // The pointer to the next Node
+    // Parametrized constructor that initializes the members using an initializer list
+    Node(string val, Node* p = nullptr, Node* n = nullptr) : data(val), prev(p), next(n) {}
+};
 
 class DoublyLinkedList // Declares the DoublyLinkedList class
 {
     private:
-        struct Node
-        {
-            string data; // The data in a Node
-            Node* prev; // The pointer to the previous Node
-            Node* next; // The pointer to the next Node
-            // Parametrized constructor that initializes the members using an initializer list
-            Node(string val, Node* p = nullptr, Node* n = nullptr) : data(val), prev(p), next(n) {}
-        };
 
         Node* head; // The pointer to the first Node struct in the linked-list
         Node* tail; // The pointer to the last Node struct in the linked-list
+        Node* tempNode = head;
 
     public:
         // Default constructor to initialize an empty linked list
@@ -27,6 +27,7 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
 
         Node* getHead() const { return head; }
         Node* getTail() const { return tail; }
+        Node* getTempNode() const { return tempNode; }
 
         // A class method to insert a new Node struct after a given position
         void insert_after(string value, int position)
@@ -309,7 +310,17 @@ int main()
 
         // 10% chance any particular customer leaves
         Node* current = line.getHead();
-
+        while (current)
+        {
+            Node* nextNode = current->next;
+            prob = rand() % 100 + 1;
+            if (prob <= 10)
+            {
+                cout << "\t" << current->data << " decides to leave the line\n";
+                line.delete_val(current->data);
+            }
+            current = nextNode;
+        }
 
         // 60% chance a new customer joins at the end
         prob = rand() % 100 + 1;
