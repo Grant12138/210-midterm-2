@@ -1,4 +1,5 @@
 #include <iostream> // Includes the standard input/output stream library
+#include <fstream>
 using namespace std; // Standard namespace will be used throughout the code
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -8,11 +9,11 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
     private:
         struct Node
         {
-            int data; // The data in a Node
+            string data; // The data in a Node
             Node* prev; // The pointer to the previous Node
             Node* next; // The pointer to the next Node
             // Parametrized constructor that initializes the members using an initializer list
-            Node(int val, Node* p = nullptr, Node* n = nullptr) : data(val), prev(p), next(n) {}
+            Node(string val, Node* p = nullptr, Node* n = nullptr) : data(val), prev(p), next(n) {}
         };
 
         Node* head; // The pointer to the first Node struct in the linked-list
@@ -60,7 +61,7 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
         }
 
         // A class method that deletes a node by its value
-        void delete_val(int value)
+        void delete_val(string value)
         {
             if (!head) return; // Nothing to delete if the list is empty
 
@@ -131,7 +132,7 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
             delete temp;
         }
 
-        void push_back(int v)
+        void push_back(string v)
         {
             Node* newNode = new Node(v); // instantiate a new node to be inserted to the end of the list
             if (!tail) // When the list is empty
@@ -144,7 +145,7 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
             }
         }
 
-        void push_front(int v)
+        void push_front(string v)
         {
             Node* newNode = new Node(v); // instantiate a new node to be added to the front of the list
             if (!head) // When the list is empty
@@ -256,5 +257,18 @@ int main()
     srand(time(0));
 
     DoublyLinkedList line;
+
+    try
+    {
+        ifstream fin("names.txt");
+        if (!fin.good()) throw "I/O error";
+    }
+    catch (const char* &e)
+    {
+        cout << e;
+        return 1;
+    }
+
+    cout << "Store opens:\n";
 
 }
