@@ -3,105 +3,6 @@
 using namespace std; // Standard namespace will be used throughout the code
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
-const string NAMES[] = {"Adam",
-                        "Alex",
-                        "Andy",
-                        "Anne",
-                        "Aria",
-                        "Beau",
-                        "Beth",
-                        "Bill",
-                        "Brad",
-                        "Cara",
-                        "Chad\n"
-                        "Cole\n"
-                        "Dana\n"
-                        "Dave\n"
-                        "Dean\n"
-                        "Drew\n"
-                        "Elle\n"
-                        "Emma\n"
-                        "Eric\n"
-                        "Erik\n"
-                        "Evan\n"
-                        "Faye\n"
-                        "Finn\n"
-                        "Gabe\n"
-                        "Gary\n"
-                        "Gina\n"
-                        "Greg\n"
-                        "Gwen\n"
-                        "Hank\n"
-                        "Hope\n"
-                        "Iris\n"
-                        "Ivan\n"
-                        "Jack\n"
-                        "Jade\n"
-                        "Jake\n"
-                        "Jane\n"
-                        "Jean\n"
-                        "Jett\n"
-                        "Jill\n"
-                        "Joan\n"
-                        "Joel\n"
-                        "John\n"
-                        "Judy\n"
-                        "June\n"
-                        "Kate\n"
-                        "Katy\n"
-                        "Kirk\n"
-                        "Kyle\n"
-                        "Lana\n"
-                        "Lane\n"
-                        "Leah\n"
-                        "Lena\n"
-                        "Liam\n"
-                        "Lily\n"
-                        "Lisa\n"
-                        "Lucy\n"
-                        "Luna\n"
-                        "Lyle\n"
-                        "Lynn\n"
-                        "Mark\n"
-                        "Mary\n"
-                        "Matt\n"
-                        "Maya\n"
-                        "Mike\n"
-                        "Milo\n"
-                        "Mina\n"
-                        "Neal\n"
-                        "Neil\n"
-                        "Nell\n"
-                        "Nina\n"
-                        "Noah\n"
-                        "Noel\n"
-                        "Nora\n"
-                        "Omar\n"
-                        "Otis\n"
-                        "Owen\n"
-                        "Paul\n"
-                        "Pete\n"
-                        "Reed\n"
-                        "Rene\n"
-                        "Rita\n"
-                        "Ross\n"
-                        "Ruby\n"
-                        "Ryan\n"
-                        "Sage\n"
-                        "Sara\n"
-                        "Seth\n"
-                        "Tara\n"
-                        "Tess\n"
-                        "Tina\n"
-                        "Toby\n"
-                        "Tony\n"
-                        "Troy\n"
-                        "Vera\n"
-                        "Wade\n"
-                        "Will\n"
-                        "Yara\n"
-                        "Zane\n"
-                        "Zara"};
 
 class DoublyLinkedList // Declares the DoublyLinkedList class
 {
@@ -351,33 +252,42 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
         }
 };
 
-string getRandomName();
+string getRandomName(const vector<string>& NAMES);
+vector<string> readNamesFile(string fileName);
 
 int main()
 {
     srand(time(0));
 
     DoublyLinkedList line;
-
-    try
-    {
-        ifstream fin("names.txt");
-        if (!fin.good()) throw "I/O error";
-    }
-    catch (const char* &e)
-    {
-        cout << e;
-        return 1;
-    }
+    vector<string> NAMES = readNamesFile("names.txt");
 
     cout << "Store opens:\n"; // Add five customers to the list
     for (int i = 0; i < 5; i++)
     {
-        line.push_back(getRandomName());
+        string aName = getRandomName(NAMES);
+        line.push_back(aName);
+        cout << "\t" << aNmae << " joins the line\n";
     }
+    cout << "Resulting line:\n";
+    line.print();
+
+
 }
 
-string getRandomName()
+vector<string> readNamesFile(string fileName)
+{
+    vector<string> NAMES {};
+    ifstream fin(fileName);
+    string aName;
+    while (getline(fin, aName))
+        NAMES.push_back(aName);
+    fin.close();
+
+    return NAMES;
+}
+
+string getRandomName(const vector<string>& NAMES)
 {
     int index = rand() % 99;
     return NAMES[index];
