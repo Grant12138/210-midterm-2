@@ -23,6 +23,9 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
         // Default constructor to initialize an empty linked list
         DoublyLinkedList() : head(nullptr), tail(nullptr) {}
 
+        Node* getHead() const { return head; }
+        Node* getTail() const { return tail; }
+
         // A class method to insert a new Node struct after a given position
         void insert_after(int value, int position)
         {
@@ -267,11 +270,46 @@ int main()
     {
         string aName = getRandomName(NAMES);
         line.push_back(aName);
-        cout << "\t" << aNmae << " joins the line\n";
+        cout << "\t" << aName << " joins the line\n";
     }
     cout << "Resulting line:\n";
     line.print();
 
+    for (int time = 2; time <= 20; time++)
+    {
+        cout << "Time step #" << time << ":\n";
+        int prob;
+
+        // 10% chance a VIP customer arrives
+        prob = rand() % 100 + 1;
+        if (prob <= 10)
+        {
+            string aVip = getRandomName(NAMES);
+            line.push_front(aVip);
+            cout << "\t" << aVip << " (VIP) joins the front of the line\n";
+        }
+
+        // 40% chance the customer at the front is served
+        prob = rand() % 100 + 1;
+        if (prob <= 40)
+        {
+            cout << "\t" << line.getHead()->data << " is served\n";
+            line.pop_front();
+        }
+
+        // 20% chance the customer at the end leaves
+        prob = rand() % 100 + 1;
+        if (prob <= 20)
+        {
+            cout << "\t" << line.getTail()->data << " exits the rear of the line\n";
+            line.pop_back();
+        }
+
+        // 10% chance any particular customer leaves
+
+        // 60% chance a new customer joins at the end
+        prob =
+    }
 
 }
 
