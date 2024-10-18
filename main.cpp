@@ -27,7 +27,7 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
         Node* getTail() const { return tail; }
 
         // A class method to insert a new Node struct after a given position
-        void insert_after(int value, int position)
+        void insert_after(string value, int position)
         {
             if (position < 0) // First check if the position given is valid
             {
@@ -220,7 +220,7 @@ class DoublyLinkedList // Declares the DoublyLinkedList class
             }
             // Iterate through each node until the end is reached
             while (current) {
-                cout << current->data << " ";
+                cout << current->data << "\n";
                 current = current->next;
             }
             cout << endl;
@@ -307,10 +307,22 @@ int main()
 
         // 10% chance any particular customer leaves
 
+
+
         // 60% chance a new customer joins at the end
-        prob =
+        prob = rand() % 100 + 1;
+        if (prob <= 60)
+        {
+            string aName = getRandomName(NAMES);
+            cout << "\t" << aName << " joins the line\n";
+            line.push_back(aName);
+        }
+
+        cout << "Resulting line:\n";
+        line.print();
     }
 
+    return 0;
 }
 
 vector<string> readNamesFile(string fileName)
