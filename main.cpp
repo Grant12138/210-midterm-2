@@ -4,6 +4,8 @@ using namespace std; // Standard namespace will be used throughout the code
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
+struct Node;
+
 class DoublyLinkedList // Declares the DoublyLinkedList class
 {
     private:
@@ -306,7 +308,7 @@ int main()
         }
 
         // 10% chance any particular customer leaves
-
+        Node* current = line.getHead();
 
 
         // 60% chance a new customer joins at the end
